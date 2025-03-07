@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Travel Planner{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded">
+    <h1 class="display-4">Welcome to Travel Planner</h1>
+    <p class="lead">Your personalized travel companion to plan the perfect trip.</p>
+    <hr class="my-4">
+    <p>Discover amazing destinations, create detailed itineraries, and make your travel dreams come true.</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('plan_trip') }}" role="button">Plan Your Trip</a>
+</div>
+
+<h2 class="mt-5 mb-4">Popular Destinations</h2>
+
+<div class="row">
+    {% for destination in destinations %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="https://source.unsplash.com/350x200/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/350x200?text={{ destination.name }}'">
+            <div class="card-body">
+                <h5 class="card-title">{{ destination.name }}, {{ destination.country }}</h5>
+                <p class="card-text">{{ destination.description }}</p>
+                <ul class="list-group list-group-flush mb-3">
+                    {% for attraction in destination.attractions[:2] %}
+                    <li class="list-group-item">{{ attraction }}</li>
+                    {% endfor %}
+                    {% if destination.attractions|length > 2 %}
+                    <li class="list-group-item text-muted">And more...</li>
+                    {% endif %}
+                </ul>
+                <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="btn btn-outline-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ url_for('plan_trip') }}" class="btn btn-success btn-lg">Start Planning Your Adventure</a>
+</div>
+{% endblock %} 

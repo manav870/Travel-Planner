@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ destination.name }} - Travel Planner{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="img-fluid rounded" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
+    </div>
+    <div class="col-md-6">
+        <h1>{{ destination.name }}, {{ destination.country }}</h1>
+        <p class="lead">{{ destination.description }}</p>
+        
+        <h3 class="mt-4">Popular Attractions</h3>
+        <ul class="list-group mb-4">
+            {% for attraction in destination.attractions %}
+            <li class="list-group-item">{{ attraction }}</li>
+            {% endfor %}
+        </ul>
+        
+        <div class="d-grid gap-2">
+            <a href="{{ url_for('plan_trip') }}" class="btn btn-primary btn-lg">Plan a Trip to {{ destination.name }}</a>
+            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Back to Destinations</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Why Visit {{ destination.name }}?</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Culture</h4>
+                                <p class="card-text">Experience the unique culture and traditions of {{ destination.name }}.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Cuisine</h4>
+                                <p class="card-text">Taste the delicious local food and beverages.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Adventure</h4>
+                                <p class="card-text">Discover exciting activities and adventures waiting for you.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

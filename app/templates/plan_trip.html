@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Plan Your Trip - Travel Planner{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Plan Your Trip</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Trip Details</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('plan_trip') }}">
+                    <div class="mb-3">
+                        <label for="destination" class="form-label">Destination</label>
+                        <select class="form-select" id="destination" name="destination" required>
+                            <option value="" selected disabled>Select a destination</option>
+                            {% for destination in destinations %}
+                            <option value="{{ destination.id }}">{{ destination.name }}, {{ destination.country }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="budget" class="form-label">Budget (USD)</label>
+                        <input type="number" class="form-control" id="budget" name="budget" min="1" step="1" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="activities" class="form-label">Activities (comma-separated)</label>
+                        <textarea class="form-control" id="activities" name="activities" rows="3" placeholder="e.g. Sightseeing, Museum visits, Beach relaxation"></textarea>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Create Trip</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Travel Tips</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Budget Wisely</strong>
+                        <p class="mb-0">Always add a 20% buffer to your estimated expenses.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Pack Smart</strong>
+                        <p class="mb-0">Research the weather at your destination before packing.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Local Customs</strong>
+                        <p class="mb-0">Learn about local customs and basic phrases in the local language.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Travel Insurance</strong>
+                        <p class="mb-0">Consider getting travel insurance for unexpected situations.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
