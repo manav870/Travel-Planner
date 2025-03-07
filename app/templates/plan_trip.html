@@ -3,19 +3,25 @@
 {% block title %}Plan Your Trip - Travel Planner{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">Plan Your Trip</h1>
+<!-- Page Header -->
+<div class="page-header mb-5">
+    <h1 class="section-heading">Plan Your Trip</h1>
+    <p class="lead text-muted">Create your perfect travel itinerary with our easy-to-use planning tool.</p>
+</div>
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">Trip Details</h3>
+    <div class="col-lg-8">
+        <!-- Trip Planning Form -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-plane-departure me-2"></i>Trip Details</h3>
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ url_for('plan_trip') }}">
-                    <div class="mb-3">
-                        <label for="destination" class="form-label">Destination</label>
-                        <select class="form-select" id="destination" name="destination" required>
+                    <!-- Destination Selection -->
+                    <div class="mb-4">
+                        <label for="destination" class="form-label">Where do you want to go?</label>
+                        <select class="form-select form-select-lg" id="destination" name="destination" required>
                             <option value="" selected disabled>Select a destination</option>
                             {% for destination in destinations %}
                             <option value="{{ destination.id }}">{{ destination.name }}, {{ destination.country }}</option>
@@ -23,65 +29,208 @@
                         </select>
                     </div>
                     
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="start_date" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" required>
+                    <!-- Travel Dates -->
+                    <div class="mb-4">
+                        <label class="form-label">When are you traveling?</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3 mb-md-0">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input type="date" class="form-control" id="start_date" name="start_date" placeholder="Start Date" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date" required>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="end_date" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date" required>
-                            </div>
+                        <small class="form-text text-muted">Select your travel dates to plan your itinerary.</small>
+                    </div>
+                    
+                    <!-- Budget -->
+                    <div class="mb-4">
+                        <label for="budget" class="form-label">What's your budget? (USD)</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" class="form-control form-control-lg" id="budget" name="budget" min="1" step="1" placeholder="Enter your budget" required>
                         </div>
+                        <small class="form-text text-muted">Enter your total budget for the trip (excluding flights).</small>
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="budget" class="form-label">Budget (USD)</label>
-                        <input type="number" class="form-control" id="budget" name="budget" min="1" step="1" required>
+                    <!-- Activities -->
+                    <div class="mb-4">
+                        <label for="activities" class="form-label">What activities are you interested in?</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-list"></i></span>
+                            <textarea class="form-control" id="activities" name="activities" rows="3" placeholder="e.g. Sightseeing, Museum visits, Beach relaxation"></textarea>
+                        </div>
+                        <small class="form-text text-muted">Enter activities separated by commas.</small>
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="activities" class="form-label">Activities (comma-separated)</label>
-                        <textarea class="form-control" id="activities" name="activities" rows="3" placeholder="e.g. Sightseeing, Museum visits, Beach relaxation"></textarea>
-                    </div>
-                    
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Create Trip</button>
+                    <!-- Submit Button -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-check-circle me-2"></i>Create My Trip
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     
-    <div class="col-md-4">
-        <div class="card">
+    <div class="col-lg-4">
+        <!-- Travel Tips Card -->
+        <div class="card mb-4">
             <div class="card-header bg-success text-white">
-                <h3 class="mb-0">Travel Tips</h3>
+                <h3 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Travel Tips</h3>
             </div>
             <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <strong>Budget Wisely</strong>
-                        <p class="mb-0">Always add a 20% buffer to your estimated expenses.</p>
+                <div class="tip-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h5>Budget Wisely</h5>
+                            <p class="mb-0">Always add a 20% buffer to your estimated expenses for unexpected costs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-suitcase"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h5>Pack Smart</h5>
+                            <p class="mb-0">Research the weather at your destination before packing your luggage.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h5>Local Customs</h5>
+                            <p class="mb-0">Learn about local customs and basic phrases in the local language.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h5>Travel Insurance</h5>
+                            <p class="mb-0">Consider getting travel insurance for unexpected situations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Planning Checklist -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-tasks me-2"></i>Planning Checklist</h3>
+            </div>
+            <div class="card-body">
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Choose your destination</span>
                     </li>
-                    <li class="list-group-item">
-                        <strong>Pack Smart</strong>
-                        <p class="mb-0">Research the weather at your destination before packing.</p>
+                    <li class="checklist-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Set your travel dates</span>
                     </li>
-                    <li class="list-group-item">
-                        <strong>Local Customs</strong>
-                        <p class="mb-0">Learn about local customs and basic phrases in the local language.</p>
+                    <li class="checklist-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Determine your budget</span>
                     </li>
-                    <li class="list-group-item">
-                        <strong>Travel Insurance</strong>
-                        <p class="mb-0">Consider getting travel insurance for unexpected situations.</p>
+                    <li class="checklist-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <span>Plan your activities</span>
+                    </li>
+                    <li class="checklist-item disabled">
+                        <i class="far fa-circle me-2"></i>
+                        <span>Book accommodations</span>
+                    </li>
+                    <li class="checklist-item disabled">
+                        <i class="far fa-circle me-2"></i>
+                        <span>Arrange transportation</span>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        text-align: center;
+        padding: 2rem 0;
+    }
+    
+    .tip-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+    
+    .tip-item {
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .tip-icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--success-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .tip-content h5 {
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+    }
+    
+    .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .checklist-item {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+    }
+    
+    .checklist-item:last-child {
+        border-bottom: none;
+    }
+    
+    .checklist-item.disabled {
+        color: var(--gray-color);
+    }
+    
+    .input-group-text {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+    }
+</style>
 {% endblock %} 

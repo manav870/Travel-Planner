@@ -3,38 +3,98 @@
 {% block title %}My Trips - Travel Planner{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">My Trips</h1>
+<!-- Page Header -->
+<div class="page-header mb-5">
+    <h1 class="section-heading">My Trips</h1>
+    <p class="lead text-muted">View and manage all your planned adventures in one place.</p>
+</div>
 
 {% if trips %}
     <div class="row">
         {% for trip in trips %}
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">{{ trip.destination.name }}, {{ trip.destination.country }}</h3>
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 trip-card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">{{ trip.destination.name }}</h3>
+                        <span class="badge bg-primary">{{ trip.destination.country }}</span>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>End Date:</strong> {{ trip.end_date }}</p>
+                    <!-- Trip Details -->
+                    <div class="trip-details mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h6>Start Date</h6>
+                                        <p>{{ trip.start_date }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h6>End Date</h6>
+                                        <p>{{ trip.end_date }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h6>Budget</h6>
+                                        <p>${{ trip.budget }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <h6>Duration</h6>
+                                        <p>{{ (trip.end_date.split('-')|last|int - trip.start_date.split('-')|last|int) + 1 }} days</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <p><strong>Budget:</strong> ${{ trip.budget }}</p>
+                    <!-- Activities -->
+                    <h5 class="mb-3"><i class="fas fa-list-ul me-2"></i>Planned Activities</h5>
+                    {% if trip.activities %}
+                        <ul class="activities-list mb-4">
+                            {% for activity in trip.activities %}
+                            <li class="activity-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>{{ activity }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No activities planned yet.</p>
+                    {% endif %}
                     
-                    <h5 class="mt-3">Planned Activities:</h5>
-                    <ul class="list-group mb-3">
-                        {% for activity in trip.activities %}
-                        <li class="list-group-item">{{ activity }}</li>
-                        {% endfor %}
-                    </ul>
-                    
-                    <div class="d-flex justify-content-between">
-                        <small class="text-muted">Created: {{ trip.created_at.strftime('%Y-%m-%d') }}</small>
-                        <a href="{{ url_for('destination_detail', destination_id=trip.destination_id) }}" class="btn btn-outline-primary btn-sm">View Destination</a>
+                    <!-- Actions -->
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>Created: {{ trip.created_at.strftime('%Y-%m-%d') }}
+                        </small>
+                        <div class="btn-group">
+                            <a href="{{ url_for('destination_detail', destination_id=trip.destination_id) }}" class="btn btn-outline-primary">
+                                <i class="fas fa-info-circle me-1"></i>View Destination
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,14 +102,106 @@
         {% endfor %}
     </div>
 {% else %}
-    <div class="alert alert-info">
-        <h4 class="alert-heading">No trips planned yet!</h4>
-        <p>You haven't planned any trips yet. Start by exploring our destinations and planning your first adventure.</p>
-        <hr>
-        <div class="d-grid gap-2 col-md-6 mx-auto">
-            <a href="{{ url_for('home') }}" class="btn btn-info">Explore Destinations</a>
-            <a href="{{ url_for('plan_trip') }}" class="btn btn-primary">Plan a Trip</a>
+    <div class="empty-state">
+        <div class="empty-state-icon">
+            <i class="fas fa-suitcase"></i>
+        </div>
+        <h3>No trips planned yet!</h3>
+        <p class="text-muted">You haven't planned any trips yet. Start by exploring our destinations and planning your first adventure.</p>
+        <div class="mt-4">
+            <a href="{{ url_for('home') }}" class="btn btn-outline-primary me-2">
+                <i class="fas fa-globe me-2"></i>Explore Destinations
+            </a>
+            <a href="{{ url_for('plan_trip') }}" class="btn btn-primary">
+                <i class="fas fa-plane-departure me-2"></i>Plan a Trip
+            </a>
         </div>
     </div>
 {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        text-align: center;
+        padding: 2rem 0;
+    }
+    
+    .trip-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .trip-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .detail-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .detail-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(67, 97, 238, 0.1);
+        color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .detail-content h6 {
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+        color: var(--gray-color);
+    }
+    
+    .detail-content p {
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+    
+    .activities-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .activity-item {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background-color: white;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .empty-state-icon {
+        width: 100px;
+        height: 100px;
+        background-color: rgba(67, 97, 238, 0.1);
+        color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin: 0 auto 2rem;
+    }
+</style>
 {% endblock %} 

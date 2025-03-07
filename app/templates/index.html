@@ -3,40 +3,211 @@
 {% block title %}Home - Travel Planner{% endblock %}
 
 {% block content %}
-<div class="jumbotron bg-light p-5 rounded">
-    <h1 class="display-4">Welcome to Travel Planner</h1>
-    <p class="lead">Your personalized travel companion to plan the perfect trip.</p>
-    <hr class="my-4">
-    <p>Discover amazing destinations, create detailed itineraries, and make your travel dreams come true.</p>
-    <a class="btn btn-primary btn-lg" href="{{ url_for('plan_trip') }}" role="button">Plan Your Trip</a>
+<!-- Hero Section -->
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Discover Your Next Adventure</h1>
+        <p class="lead">Your personalized travel companion to plan the perfect trip.</p>
+        <hr class="my-4">
+        <p>Explore amazing destinations, create detailed itineraries, and make your travel dreams come true.</p>
+        <div class="mt-4">
+            <a class="btn btn-primary btn-lg me-2" href="{{ url_for('plan_trip') }}" role="button">
+                <i class="fas fa-map-marked-alt me-2"></i>Plan Your Trip
+            </a>
+            <a class="btn btn-outline-light btn-lg" href="#destinations" role="button">
+                <i class="fas fa-globe me-2"></i>Explore Destinations
+            </a>
+        </div>
+    </div>
 </div>
 
-<h2 class="mt-5 mb-4">Popular Destinations</h2>
-
-<div class="row">
-    {% for destination in destinations %}
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <img src="https://source.unsplash.com/350x200/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/350x200?text={{ destination.name }}'">
-            <div class="card-body">
-                <h5 class="card-title">{{ destination.name }}, {{ destination.country }}</h5>
-                <p class="card-text">{{ destination.description }}</p>
-                <ul class="list-group list-group-flush mb-3">
-                    {% for attraction in destination.attractions[:2] %}
-                    <li class="list-group-item">{{ attraction }}</li>
-                    {% endfor %}
-                    {% if destination.attractions|length > 2 %}
-                    <li class="list-group-item text-muted">And more...</li>
-                    {% endif %}
-                </ul>
-                <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="btn btn-outline-primary">View Details</a>
+<!-- Features Section -->
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="p-3">
+                <div class="feature-icon bg-primary bg-gradient text-white mb-3">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>Discover Places</h3>
+                <p class="text-muted">Explore amazing destinations around the world with detailed information and travel tips.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="p-3">
+                <div class="feature-icon bg-primary bg-gradient text-white mb-3">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Plan Itineraries</h3>
+                <p class="text-muted">Create detailed travel plans with dates, activities, and budgets to make your trip perfect.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="p-3">
+                <div class="feature-icon bg-primary bg-gradient text-white mb-3">
+                    <i class="fas fa-suitcase"></i>
+                </div>
+                <h3>Track Trips</h3>
+                <p class="text-muted">Keep all your travel plans organized in one place for easy access and management.</p>
             </div>
         </div>
     </div>
-    {% endfor %}
 </div>
 
-<div class="text-center mt-4">
-    <a href="{{ url_for('plan_trip') }}" class="btn btn-success btn-lg">Start Planning Your Adventure</a>
+<!-- Destinations Section -->
+<div id="destinations" class="container my-5">
+    <h2 class="section-heading mb-4">Popular Destinations</h2>
+    
+    <div class="row">
+        {% for destination in destinations %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-img-wrapper">
+                    <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
+                    <div class="card-img-overlay d-flex align-items-end">
+                        <span class="badge bg-primary px-3 py-2 mb-3">{{ destination.country }}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ destination.name }}</h5>
+                    <p class="card-text">{{ destination.description }}</p>
+                    
+                    <h6 class="mt-3 mb-2">Top Attractions:</h6>
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for attraction in destination.attractions[:2] %}
+                        <li class="list-group-item px-0">
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>{{ attraction }}
+                        </li>
+                        {% endfor %}
+                        {% if destination.attractions|length > 2 %}
+                        <li class="list-group-item px-0 text-muted">
+                            <i class="fas fa-plus-circle me-2"></i>And more...
+                        </li>
+                        {% endif %}
+                    </ul>
+                    
+                    <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="btn btn-outline-primary">
+                        <i class="fas fa-info-circle me-2"></i>View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{{ url_for('plan_trip') }}" class="btn btn-success btn-lg">
+            <i class="fas fa-plane-departure me-2"></i>Start Planning Your Adventure
+        </a>
+    </div>
 </div>
+
+<!-- Testimonials Section -->
+<div class="bg-light py-5 mt-5">
+    <div class="container">
+        <h2 class="section-heading mb-4">What Travelers Say</h2>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="card-text">"This travel planner made organizing my trip to Paris so easy! I could keep track of all my activities and budget in one place."</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-shrink-0">
+                                <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle" width="50" height="50" alt="Sarah J.">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Sarah Johnson</h6>
+                                <p class="text-muted mb-0">Paris, France</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="card-text">"I love how I can see all the attractions for each destination. It helped me discover places I wouldn't have known about otherwise!"</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-shrink-0">
+                                <img src="https://randomuser.me/api/portraits/men/44.jpg" class="rounded-circle" width="50" height="50" alt="Michael T.">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Michael Thompson</h6>
+                                <p class="text-muted mb-0">Tokyo, Japan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="card-text">"Planning a family trip to New York was a breeze with this tool. The interface is intuitive and the travel tips were very helpful."</p>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-shrink-0">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle" width="50" height="50" alt="Emily R.">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">Emily Rodriguez</h6>
+                                <p class="text-muted mb-0">New York, USA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        font-size: 1.75rem;
+    }
+    
+    .card-img-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .card-img-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+        transition: all 0.3s ease;
+    }
+</style>
 {% endblock %} 

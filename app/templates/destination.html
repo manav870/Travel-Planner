@@ -3,63 +3,269 @@
 {% block title %}{{ destination.name }} - Travel Planner{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6">
-        <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="img-fluid rounded" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
-    </div>
-    <div class="col-md-6">
-        <h1>{{ destination.name }}, {{ destination.country }}</h1>
-        <p class="lead">{{ destination.description }}</p>
-        
-        <h3 class="mt-4">Popular Attractions</h3>
-        <ul class="list-group mb-4">
-            {% for attraction in destination.attractions %}
-            <li class="list-group-item">{{ attraction }}</li>
-            {% endfor %}
-        </ul>
-        
-        <div class="d-grid gap-2">
-            <a href="{{ url_for('plan_trip') }}" class="btn btn-primary btn-lg">Plan a Trip to {{ destination.name }}</a>
-            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Back to Destinations</a>
-        </div>
-    </div>
-</div>
-
-<div class="row mt-5">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">Why Visit {{ destination.name }}?</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Culture</h4>
-                                <p class="card-text">Experience the unique culture and traditions of {{ destination.name }}.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Cuisine</h4>
-                                <p class="card-text">Taste the delicious local food and beverages.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Adventure</h4>
-                                <p class="card-text">Discover exciting activities and adventures waiting for you.</p>
-                            </div>
-                        </div>
+<!-- Destination Header -->
+<div class="destination-header mb-5">
+    <div class="destination-image" style="background-image: url('https://source.unsplash.com/1200x400/?{{ destination.name }},travel');">
+        <div class="destination-overlay">
+            <div class="container">
+                <div class="destination-title">
+                    <h1>{{ destination.name }}</h1>
+                    <div class="destination-meta">
+                        <span><i class="fas fa-map-marker-alt me-2"></i>{{ destination.country }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Description -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">About {{ destination.name }}</h2>
+                    <p class="lead">{{ destination.description }}</p>
+                    <p>{{ destination.name }} is a destination that offers a perfect blend of culture, history, and modern attractions. Whether you're looking for adventure, relaxation, or cultural experiences, this city has something for everyone.</p>
+                </div>
+            </div>
+            
+            <!-- Attractions -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0"><i class="fas fa-map-marked-alt me-2"></i>Top Attractions</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for attraction in destination.attractions %}
+                        <div class="col-md-6 mb-3">
+                            <div class="attraction-item">
+                                <div class="attraction-icon">
+                                    <i class="fas fa-landmark"></i>
+                                </div>
+                                <div class="attraction-content">
+                                    <h5>{{ attraction }}</h5>
+                                    <p class="text-muted">A must-visit attraction in {{ destination.name }}.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Travel Tips -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Travel Tips</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="tip-item">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                <strong>Best Time to Visit:</strong> Spring and Fall
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="tip-item">
+                                <i class="fas fa-language text-primary me-2"></i>
+                                <strong>Language:</strong> Learn basic local phrases
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="tip-item">
+                                <i class="fas fa-money-bill-wave text-primary me-2"></i>
+                                <strong>Currency:</strong> Check exchange rates before travel
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="tip-item">
+                                <i class="fas fa-utensils text-primary me-2"></i>
+                                <strong>Food:</strong> Try local cuisine for authentic experience
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Action Card -->
+            <div class="card mb-4 action-card">
+                <div class="card-body text-center">
+                    <h4 class="mb-4">Ready to explore {{ destination.name }}?</h4>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('plan_trip') }}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plane-departure me-2"></i>Plan a Trip
+                        </a>
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Destinations
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Weather Card (Placeholder) -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-cloud-sun me-2"></i>Weather</h4>
+                </div>
+                <div class="card-body">
+                    <div class="weather-widget text-center">
+                        <i class="fas fa-sun fa-3x text-warning mb-3"></i>
+                        <h5>Current Weather</h5>
+                        <p class="display-6 mb-0">24°C</p>
+                        <p class="text-muted">Sunny with clear skies</p>
+                        <div class="row mt-3">
+                            <div class="col-4">
+                                <div class="weather-day">
+                                    <p class="mb-1">Mon</p>
+                                    <i class="fas fa-cloud-sun"></i>
+                                    <p class="mb-0">22°C</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="weather-day">
+                                    <p class="mb-1">Tue</p>
+                                    <i class="fas fa-cloud"></i>
+                                    <p class="mb-0">20°C</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="weather-day">
+                                    <p class="mb-1">Wed</p>
+                                    <i class="fas fa-sun"></i>
+                                    <p class="mb-0">25°C</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map Card (Placeholder) -->
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-map me-2"></i>Location</h4>
+                </div>
+                <div class="card-body p-0">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ destination.name }},{{ destination.country }}&zoom=10&size=400x300&key=YOUR_API_KEY" 
+                         class="img-fluid" alt="Map of {{ destination.name }}"
+                         onerror="this.src='https://via.placeholder.com/400x300?text=Map+of+{{ destination.name }}'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .destination-header {
+        position: relative;
+    }
+    
+    .destination-image {
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+    }
+    
+    .destination-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem;
+    }
+    
+    .destination-title {
+        color: white;
+    }
+    
+    .destination-title h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .destination-meta {
+        font-size: 1.25rem;
+    }
+    
+    .attraction-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .attraction-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-right: 1rem;
+    }
+    
+    .attraction-content h5 {
+        margin-bottom: 0.25rem;
+    }
+    
+    .attraction-content p {
+        margin-bottom: 0;
+    }
+    
+    .tip-item {
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+        border-radius: var(--radius-md);
+    }
+    
+    .action-card {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+    
+    .action-card .btn-outline-secondary {
+        color: white;
+        border-color: white;
+    }
+    
+    .action-card .btn-outline-secondary:hover {
+        background-color: white;
+        color: var(--primary-color);
+    }
+    
+    .weather-day {
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+        border-radius: var(--radius-md);
+    }
+    
+    @media (max-width: 768px) {
+        .destination-image {
+            height: 300px;
+        }
+        
+        .destination-title h1 {
+            font-size: 2.25rem;
+        }
+    }
+</style>
 {% endblock %} 
