@@ -16,7 +16,8 @@ destinations = [
         'country': 'France',
         'description': 'The City of Light',
         'image': 'paris.jpg',
-        'attractions': ['Eiffel Tower', 'Louvre Museum', 'Notre-Dame Cathedral']
+        'attractions': ['Eiffel Tower', 'Louvre Museum', 'Notre-Dame Cathedral'],
+        'suggested_budget': {'min': 1200, 'max': 2000}
     },
     {
         'id': 2,
@@ -24,7 +25,8 @@ destinations = [
         'country': 'Japan',
         'description': 'A blend of traditional and ultramodern',
         'image': 'tokyo.jpg',
-        'attractions': ['Tokyo Tower', 'Senso-ji Temple', 'Shibuya Crossing']
+        'attractions': ['Tokyo Tower', 'Senso-ji Temple', 'Shibuya Crossing'],
+        'suggested_budget': {'min': 1500, 'max': 2500}
     },
     {
         'id': 3,
@@ -32,7 +34,44 @@ destinations = [
         'country': 'USA',
         'description': 'The Big Apple',
         'image': 'newyork.jpg',
-        'attractions': ['Statue of Liberty', 'Central Park', 'Empire State Building']
+        'attractions': ['Statue of Liberty', 'Central Park', 'Empire State Building'],
+        'suggested_budget': {'min': 1800, 'max': 3000}
+    },
+    {
+        'id': 4,
+        'name': 'Rome',
+        'country': 'Italy',
+        'description': 'The Eternal City',
+        'image': 'rome.jpg',
+        'attractions': ['Colosseum', 'Vatican City', 'Trevi Fountain'],
+        'suggested_budget': {'min': 1000, 'max': 1800}
+    },
+    {
+        'id': 5,
+        'name': 'Bali',
+        'country': 'Indonesia',
+        'description': 'Island of the Gods',
+        'image': 'bali.jpg',
+        'attractions': ['Ubud Monkey Forest', 'Tanah Lot Temple', 'Kuta Beach'],
+        'suggested_budget': {'min': 800, 'max': 1500}
+    },
+    {
+        'id': 6,
+        'name': 'London',
+        'country': 'United Kingdom',
+        'description': 'The Historic Capital',
+        'image': 'london.jpg',
+        'attractions': ['Buckingham Palace', 'Big Ben', 'London Eye'],
+        'suggested_budget': {'min': 1500, 'max': 2500}
+    },
+    {
+        'id': 7,
+        'name': 'Sydney',
+        'country': 'Australia',
+        'description': 'The Harbour City',
+        'image': 'sydney.jpg',
+        'attractions': ['Sydney Opera House', 'Bondi Beach', 'Sydney Harbour Bridge'],
+        'suggested_budget': {'min': 1600, 'max': 2700}
     }
 ]
 
@@ -52,22 +91,50 @@ def destination_detail(destination_id):
 @app.route('/plan_trip', methods=['GET', 'POST'])
 def plan_trip():
     if request.method == 'POST':
-        # Process the form data
-        activities_text = request.form.get('activities', '').strip()
-        activities_list = [activity.strip() for activity in activities_text.split(',')] if activities_text else []
-        
-        new_trip = {
-            'id': len(trips) + 1,
-            'destination_id': int(request.form.get('destination')),
-            'start_date': request.form.get('start_date'),
-            'end_date': request.form.get('end_date'),
-            'budget': float(request.form.get('budget')),
-            'activities': activities_list,
-            'created_at': datetime.now()
-        }
-        trips.append(new_trip)
-        flash('Trip planned successfully!', 'success')
-        return redirect(url_for('my_trips'))
+        try:
+            # Process the form data
+            activities_text = request.form.get('activities', '').strip()
+            activities_list = [activity.strip() for activity in activities_text.split(',')] if activities_text else []
+            
+            # Validate destination
+            destination_id = int(request.form.get('destination', 0))
+            if not any(d['id'] == destination_id for d in destinations):
+                flash('Please select a valid destination.', 'danger')
+                return render_template('plan_trip.html', destinations=destinations)
+            
+            # Validate dates
+            start_date = request.form.get('start_date')
+            end_date = request.form.get('end_date')
+            if not start_date or not end_date:
+                flash('Please select valid travel dates.', 'danger')
+                return render_template('plan_trip.html', destinations=destinations)
+            
+            # Validate and parse budget
+            try:
+                budget = float(request.form.get('budget', 0))
+                if budget <= 0:
+                    flash('Please enter a valid budget amount.', 'danger')
+                    return render_template('plan_trip.html', destinations=destinations)
+            except ValueError:
+                flash('Please enter a valid budget amount.', 'danger')
+                return render_template('plan_trip.html', destinations=destinations)
+            
+            # Create new trip
+            new_trip = {
+                'id': len(trips) + 1,
+                'destination_id': destination_id,
+                'start_date': start_date,
+                'end_date': end_date,
+                'budget': budget,
+                'activities': activities_list,
+                'created_at': datetime.now()
+            }
+            trips.append(new_trip)
+            flash('Trip planned successfully!', 'success')
+            return redirect(url_for('my_trips'))
+        except Exception as e:
+            flash('An error occurred while planning your trip. Please try again.', 'danger')
+            return render_template('plan_trip.html', destinations=destinations)
     
     return render_template('plan_trip.html', destinations=destinations)
 

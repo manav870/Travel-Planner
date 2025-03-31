@@ -64,7 +64,14 @@
                                     </div>
                                     <div class="detail-content">
                                         <h6>Duration</h6>
-                                        <p>{{ (trip.end_date.split('-')|last|int - trip.start_date.split('-')|last|int) + 1 }} days</p>
+                                        <p>
+                                            {% set start = trip.start_date.split('-') %}
+                                            {% set end = trip.end_date.split('-') %}
+                                            {% set start_date = start[0] + '-' + start[1] + '-' + start[2] %}
+                                            {% set end_date = end[0] + '-' + end[1] + '-' + end[2] %}
+                                            {% set days = (end_date|string|replace('-', '')|int - start_date|string|replace('-', '')|int) // 10000 %}
+                                            {{ days + 1 }} days
+                                        </p>
                                     </div>
                                 </div>
                             </div>

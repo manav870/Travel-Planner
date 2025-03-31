@@ -51,12 +51,21 @@
                     
                     <!-- Budget -->
                     <div class="mb-4">
-                        <label for="budget" class="form-label">What's your budget? (USD)</label>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="budget" class="form-label mb-0">What's your budget? (USD)</label>
+                            <span id="suggested-budget-inline" class="text-primary small d-none">
+                                <i class="fas fa-info-circle me-1"></i>Suggested: $<span id="budget-min-inline"></span>-$<span id="budget-max-inline"></span> (7 days)
+                            </span>
+                        </div>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                             <input type="number" class="form-control form-control-lg" id="budget" name="budget" min="1" step="1" placeholder="Enter your budget" required>
                         </div>
-                        <small class="form-text text-muted">Enter your total budget for the trip (excluding flights).</small>
+                        <small class="form-text text-muted">Enter your total budget for the trip (excluding flights). Suggested budget is for a 7-day stay.</small>
+                        <div id="budget-warning" class="alert alert-danger mt-2 d-none">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <span>Warning: Your budget is below the recommended minimum of $<span id="warning-min-amount"></span> for <span id="warning-destination"></span>. Consider increasing your budget for a comfortable 7-day trip.</span>
+                        </div>
                     </div>
                     
                     <!-- Activities -->
