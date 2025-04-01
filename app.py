@@ -169,6 +169,19 @@ def my_trips():
     
     return render_template('my_trips.html', trips=enhanced_trips)
 
+@app.route('/delete_trip/<int:trip_id>', methods=['POST'])
+def delete_trip(trip_id):
+    # Find the trip with the given ID and remove it
+    trip_index = next((index for index, trip in enumerate(trips) if trip['id'] == trip_id), None)
+    
+    if trip_index is not None:
+        trips.pop(trip_index)
+        flash('Trip deleted successfully!', 'success')
+    else:
+        flash('Trip not found.', 'danger')
+    
+    return redirect(url_for('my_trips'))
+
 @app.route('/api/weather/<int:destination_id>')
 def get_weather(destination_id):
     try:
