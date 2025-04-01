@@ -32,6 +32,53 @@
                 </div>
             </div>
             
+            <!-- Weather Widget -->
+            <div class="weather-widget mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-cloud-sun me-2"></i>Current Weather
+                        </h5>
+                        <div class="weather-content">
+                            <div class="weather-loading">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="weather-data d-none">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="" alt="Weather icon" class="weather-icon me-3">
+                                    <div>
+                                        <h3 class="weather-temperature mb-0"></h3>
+                                        <p class="weather-description mb-0"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-temperature-high me-2"></i>
+                                            <span class="feels-like"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-tint me-2"></i>
+                                            <span class="humidity"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="weather-detail">
+                                            <i class="fas fa-wind me-2"></i>
+                                            <span class="wind-speed"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Attractions -->
             <div class="card mb-4">
                 <div class="card-header">
@@ -105,44 +152,6 @@
                         <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left me-2"></i>Back to Destinations
                         </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Weather Card (Placeholder) -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-cloud-sun me-2"></i>Weather</h4>
-                </div>
-                <div class="card-body">
-                    <div class="weather-widget text-center">
-                        <i class="fas fa-sun fa-3x text-warning mb-3"></i>
-                        <h5>Current Weather</h5>
-                        <p class="display-6 mb-0">24°C</p>
-                        <p class="text-muted">Sunny with clear skies</p>
-                        <div class="row mt-3">
-                            <div class="col-4">
-                                <div class="weather-day">
-                                    <p class="mb-1">Mon</p>
-                                    <i class="fas fa-cloud-sun"></i>
-                                    <p class="mb-0">22°C</p>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="weather-day">
-                                    <p class="mb-1">Tue</p>
-                                    <i class="fas fa-cloud"></i>
-                                    <p class="mb-0">20°C</p>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="weather-day">
-                                    <p class="mb-1">Wed</p>
-                                    <i class="fas fa-sun"></i>
-                                    <p class="mb-0">25°C</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -267,5 +276,100 @@
             font-size: 2.25rem;
         }
     }
+    
+    .weather-widget {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 10px;
+        padding: 1rem;
+    }
+    
+    .weather-icon {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .weather-temperature {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    
+    .weather-description {
+        color: #666;
+        text-transform: capitalize;
+    }
+    
+    .weather-detail {
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .budget-range {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+    
+    .badge {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+    }
 </style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var destinationId = "{{ destination.id }}";
+    var weatherLoading = document.querySelector('.weather-loading');
+    var weatherData = document.querySelector('.weather-data');
+    
+    // Function to update weather display
+    function updateWeatherDisplay(data) {
+        // Update weather icon - WeatherAPI.com provides full URLs to icons
+        var weatherIcon = document.querySelector('.weather-icon');
+        weatherIcon.src = data.icon.startsWith('http') ? data.icon : 'https://openweathermap.org/img/wn/' + data.icon + '@2x.png';
+        
+        // Update temperature and description
+        document.querySelector('.weather-temperature').textContent = data.temperature + '°C';
+        document.querySelector('.weather-description').textContent = data.description;
+        
+        // Update additional details
+        document.querySelector('.feels-like').textContent = 'Feels like ' + data.feels_like + '°C';
+        document.querySelector('.humidity').textContent = data.humidity + '% humidity';
+        document.querySelector('.wind-speed').textContent = data.wind_speed + ' m/s';
+        
+        // Show weather data and hide loading
+        weatherLoading.classList.add('d-none');
+        weatherData.classList.remove('d-none');
+    }
+    
+    // Function to fetch weather data
+    function fetchWeather() {
+        fetch('/api/weather/' + destinationId)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch weather data');
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                updateWeatherDisplay(data);
+            })
+            .catch(function(error) {
+                console.error('Error fetching weather:', error);
+                weatherLoading.innerHTML = '<div class="alert alert-danger">Failed to load weather data</div>';
+                weatherData.classList.add('d-none');
+            });
+    }
+    
+    // Fetch weather data immediately
+    fetchWeather();
+    
+    // Refresh weather data every 30 minutes
+    setInterval(fetchWeather, 30 * 60 * 1000);
+});
+</script>
 {% endblock %} 
