@@ -15,38 +15,36 @@
     <div class="row">
         {% for destination in destinations %}
         <div class="col-md-4 mb-4">
-            <div class="card h-100 destination-card">
-                <div class="card-img-wrapper">
-                    <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
-                    <div class="card-img-overlay d-flex align-items-end">
-                        <span class="badge bg-primary px-3 py-2 mb-3">{{ destination.country }}</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ destination.name }}</h5>
-                    <p class="card-text small">{{ destination.description }}</p>
-                    
-                    <div class="expanded-content">
-                        <h6 class="mt-3 mb-2">Top Attractions:</h6>
-                        <ul class="list-group list-group-flush mb-3">
-                            {% for attraction in destination.attractions %}
-                            <li class="list-group-item px-0 py-1">
-                                <i class="fas fa-map-marker-alt text-primary me-2"></i>{{ attraction }}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        
-                        <div class="budget-info mb-3">
-                            <h6 class="mb-2">Suggested Budget:</h6>
-                            <p class="small mb-0">${{ destination.suggested_budget.min }} - ${{ destination.suggested_budget.max }}</p>
+            <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="text-decoration-none">
+                <div class="card h-100 destination-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
+                        <div class="card-img-overlay d-flex align-items-end">
+                            <span class="badge bg-primary px-3 py-2 mb-3">{{ destination.country }}</span>
                         </div>
                     </div>
-                    
-                    <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="btn btn-sm btn-outline-primary">
-                        <i class="fas fa-info-circle me-1"></i>View Details
-                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ destination.name }}</h5>
+                        <p class="card-text small">{{ destination.description }}</p>
+                        
+                        <div class="expanded-content">
+                            <h6 class="mt-3 mb-2">Top Attractions:</h6>
+                            <ul class="list-group list-group-flush mb-3">
+                                {% for attraction in destination.attractions %}
+                                <li class="list-group-item px-0 py-1">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>{{ attraction }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            
+                            <div class="budget-info mb-3">
+                                <h6 class="mb-2">Suggested Budget:</h6>
+                                <p class="small mb-0">${{ destination.suggested_budget.min }} - ${{ destination.suggested_budget.max }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
     </div>

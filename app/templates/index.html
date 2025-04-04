@@ -21,8 +21,45 @@
     </div>
 </div>
 
+<!-- Destinations Section -->
+<div id="destinations" class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-heading">Popular Destinations</h2>
+    </div>
+    
+    <div class="row">
+        {% for destination in destinations[:3] %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="text-decoration-none">
+                <div class="card h-100 destination-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
+                        <div class="card-img-overlay d-flex align-items-end">
+                            <span class="badge bg-primary px-3 py-2 mb-3">{{ destination.country }}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ destination.name }}</h5>
+                        <p class="card-text small">{{ destination.description }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('all_destinations') }}" class="btn btn-primary">
+            <i class="fas fa-globe me-2"></i>Explore All Destinations
+        </a>
+    </div>
+</div>
+
 <!-- Features Section -->
 <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-heading">Travel Planning Features</h2>
+    </div>
     <div class="row text-center">
         <div class="col-md-4 mb-4">
             <div class="p-3">
@@ -51,45 +88,6 @@
                 <p class="text-muted">Keep all your travel plans organized in one place for easy access and management.</p>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Destinations Section -->
-<div id="destinations" class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="section-heading">Popular Destinations</h2>
-        <a href="{{ url_for('all_destinations') }}" class="btn btn-outline-primary">
-            <i class="fas fa-globe me-2"></i>Explore More Locations
-        </a>
-    </div>
-    
-    <div class="row">
-        {% for destination in destinations[:3] %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 destination-card">
-                <div class="card-img-wrapper">
-                    <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
-                    <div class="card-img-overlay d-flex align-items-end">
-                        <span class="badge bg-primary px-3 py-2 mb-3">{{ destination.country }}</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ destination.name }}</h5>
-                    <p class="card-text small">{{ destination.description }}</p>
-                    
-                    <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="btn btn-sm btn-outline-primary">
-                        <i class="fas fa-info-circle me-1"></i>View Details
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="text-center mt-4">
-        <a href="{{ url_for('all_destinations') }}" class="btn btn-primary">
-            <i class="fas fa-globe me-2"></i>Explore All Destinations
-        </a>
     </div>
 </div>
 
@@ -203,11 +201,24 @@
     
     .destination-card {
         transition: all 0.3s ease;
+        cursor: pointer;
     }
     
     .destination-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .destination-card:hover:after {
+        content: "View Details →";
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background-color: var(--bs-primary);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
     }
     
     .destination-card .card-img-top {
