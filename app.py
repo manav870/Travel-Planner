@@ -29,7 +29,13 @@ destinations = [
         'image': 'paris.jpg',
         'attractions': ['Eiffel Tower', 'Louvre Museum', 'Notre-Dame Cathedral'],
         'suggested_budget': {'min': 1200, 'max': 2000},
-        'coordinates': {'lat': 48.8566, 'lon': 2.3522}
+        'coordinates': {'lat': 48.8566, 'lon': 2.3522},
+        'travel_tips': {
+            'best_time': 'April to June or September to October',
+            'language': 'French, basic phrases recommended',
+            'currency': 'Euro (€)',
+            'food': 'Try croissants, escargot, and authentic French pastries'
+        }
     },
     {
         'id': 2,
@@ -39,7 +45,13 @@ destinations = [
         'image': 'tokyo.jpg',
         'attractions': ['Tokyo Tower', 'Senso-ji Temple', 'Shibuya Crossing'],
         'suggested_budget': {'min': 1500, 'max': 2500},
-        'coordinates': {'lat': 35.6762, 'lon': 139.6503}
+        'coordinates': {'lat': 35.6762, 'lon': 139.6503},
+        'travel_tips': {
+            'best_time': 'March-April (cherry blossoms) or October-November',
+            'language': 'Japanese, English is limited in many areas',
+            'currency': 'Japanese Yen (¥)',
+            'food': 'Must try sushi, ramen, and yakitori'
+        }
     },
     {
         'id': 3,
@@ -49,7 +61,13 @@ destinations = [
         'image': 'newyork.jpg',
         'attractions': ['Statue of Liberty', 'Central Park', 'Empire State Building'],
         'suggested_budget': {'min': 1800, 'max': 3000},
-        'coordinates': {'lat': 40.7128, 'lon': -74.0060}
+        'coordinates': {'lat': 40.7128, 'lon': -74.0060},
+        'travel_tips': {
+            'best_time': 'April to June or September to November',
+            'language': 'English',
+            'currency': 'US Dollar ($)',
+            'food': 'Try NYC pizza, bagels, and food from diverse neighborhoods'
+        }
     },
     {
         'id': 4,
@@ -59,7 +77,13 @@ destinations = [
         'image': 'rome.jpg',
         'attractions': ['Colosseum', 'Vatican City', 'Trevi Fountain'],
         'suggested_budget': {'min': 1000, 'max': 1800},
-        'coordinates': {'lat': 41.9028, 'lon': 12.4964}
+        'coordinates': {'lat': 41.9028, 'lon': 12.4964},
+        'travel_tips': {
+            'best_time': 'April to May or September to October',
+            'language': 'Italian, English in tourist areas',
+            'currency': 'Euro (€)',
+            'food': 'Authentic pasta, gelato, and espresso are must-tries'
+        }
     },
     {
         'id': 5,
@@ -69,7 +93,13 @@ destinations = [
         'image': 'bali.jpg',
         'attractions': ['Ubud Monkey Forest', 'Tanah Lot Temple', 'Kuta Beach'],
         'suggested_budget': {'min': 800, 'max': 1500},
-        'coordinates': {'lat': -8.4095, 'lon': 115.1889}
+        'coordinates': {'lat': -8.4095, 'lon': 115.1889},
+        'travel_tips': {
+            'best_time': 'April to October (dry season)',
+            'language': 'Balinese/Indonesian, English in tourist areas',
+            'currency': 'Indonesian Rupiah (Rp)',
+            'food': 'Try Nasi Goreng, Babi Guling, and fresh seafood'
+        }
     },
     {
         'id': 6,
@@ -79,7 +109,13 @@ destinations = [
         'image': 'london.jpg',
         'attractions': ['Buckingham Palace', 'Big Ben', 'London Eye'],
         'suggested_budget': {'min': 1500, 'max': 2500},
-        'coordinates': {'lat': 51.5074, 'lon': -0.1278}
+        'coordinates': {'lat': 51.5074, 'lon': -0.1278},
+        'travel_tips': {
+            'best_time': 'May to September',
+            'language': 'English',
+            'currency': 'British Pound (£)',
+            'food': 'Traditional fish & chips, Sunday roast, and afternoon tea'
+        }
     },
     {
         'id': 7,
@@ -89,7 +125,13 @@ destinations = [
         'image': 'sydney.jpg',
         'attractions': ['Sydney Opera House', 'Bondi Beach', 'Sydney Harbour Bridge'],
         'suggested_budget': {'min': 1600, 'max': 2700},
-        'coordinates': {'lat': -33.8688, 'lon': 151.2093}
+        'coordinates': {'lat': -33.8688, 'lon': 151.2093},
+        'travel_tips': {
+            'best_time': 'September to November and March to May',
+            'language': 'English',
+            'currency': 'Australian Dollar (AUD)',
+            'food': 'Try fresh seafood, meat pies, and Tim Tams'
+        }
     },
     {
         'id': 8,
@@ -99,7 +141,13 @@ destinations = [
         'image': 'santorini.jpg',
         'attractions': ['Oia Sunset', 'Blue Dome Churches', 'Fira Cliffs'],
         'suggested_budget': {'min': 1400, 'max': 2600},
-        'coordinates': {'lat': 36.3932, 'lon': 25.4615}
+        'coordinates': {'lat': 36.3932, 'lon': 25.4615},
+        'travel_tips': {
+            'best_time': 'April to May or September to October',
+            'language': 'Greek, English widely spoken in tourist areas',
+            'currency': 'Euro (€)',
+            'food': 'Fresh Mediterranean cuisine, gyros, and local wine'
+        }
     },
     {
         'id': 9,
@@ -109,7 +157,13 @@ destinations = [
         'image': 'dubai.jpg',
         'attractions': ['Burj Khalifa', 'Palm Jumeirah', 'Dubai Mall'],
         'suggested_budget': {'min': 1800, 'max': 3500},
-        'coordinates': {'lat': 25.2048, 'lon': 55.2708}
+        'coordinates': {'lat': 25.2048, 'lon': 55.2708},
+        'travel_tips': {
+            'best_time': 'November to March (cooler months)',
+            'language': 'Arabic, English widely spoken',
+            'currency': 'UAE Dirham (AED)',
+            'food': 'Try shawarma, Arabic mezze, and international cuisine'
+        }
     },
     {
         'id': 10,
@@ -119,7 +173,13 @@ destinations = [
         'image': 'barcelona.jpg',
         'attractions': ['Sagrada Familia', 'Park Güell', 'La Rambla'],
         'suggested_budget': {'min': 1100, 'max': 2000},
-        'coordinates': {'lat': 41.3851, 'lon': 2.1734}
+        'coordinates': {'lat': 41.3851, 'lon': 2.1734},
+        'travel_tips': {
+            'best_time': 'May to June or September to October',
+            'language': 'Spanish and Catalan',
+            'currency': 'Euro (€)',
+            'food': 'Must try tapas, paella, and Catalan cuisine'
+        }
     },
     {
         'id': 11,
@@ -129,7 +189,13 @@ destinations = [
         'image': 'kyoto.jpg',
         'attractions': ['Fushimi Inari Shrine', 'Arashiyama Bamboo Grove', 'Kinkaku-ji Temple'],
         'suggested_budget': {'min': 1300, 'max': 2200},
-        'coordinates': {'lat': 35.0116, 'lon': 135.7681}
+        'coordinates': {'lat': 35.0116, 'lon': 135.7681},
+        'travel_tips': {
+            'best_time': 'March-April (cherry blossoms) or November (autumn colors)',
+            'language': 'Japanese, limited English',
+            'currency': 'Japanese Yen (¥)',
+            'food': 'Try traditional Kaiseki dining and local sweets'
+        }
     },
     {
         'id': 12,
@@ -139,7 +205,13 @@ destinations = [
         'image': 'rio.jpg',
         'attractions': ['Christ the Redeemer', 'Copacabana Beach', 'Sugarloaf Mountain'],
         'suggested_budget': {'min': 1000, 'max': 1900},
-        'coordinates': {'lat': -22.9068, 'lon': -43.1729}
+        'coordinates': {'lat': -22.9068, 'lon': -43.1729},
+        'travel_tips': {
+            'best_time': 'December to March (summer) or during Carnival',
+            'language': 'Portuguese, limited English',
+            'currency': 'Brazilian Real (R$)',
+            'food': 'Try feijoada, churrasco, and fresh tropical fruits'
+        }
     }
 ]
 
