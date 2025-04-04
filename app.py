@@ -90,6 +90,56 @@ destinations = [
         'attractions': ['Sydney Opera House', 'Bondi Beach', 'Sydney Harbour Bridge'],
         'suggested_budget': {'min': 1600, 'max': 2700},
         'coordinates': {'lat': -33.8688, 'lon': 151.2093}
+    },
+    {
+        'id': 8,
+        'name': 'Santorini',
+        'country': 'Greece',
+        'description': 'The stunning volcanic island',
+        'image': 'santorini.jpg',
+        'attractions': ['Oia Sunset', 'Blue Dome Churches', 'Fira Cliffs'],
+        'suggested_budget': {'min': 1400, 'max': 2600},
+        'coordinates': {'lat': 36.3932, 'lon': 25.4615}
+    },
+    {
+        'id': 9,
+        'name': 'Dubai',
+        'country': 'United Arab Emirates',
+        'description': 'The City of Gold',
+        'image': 'dubai.jpg',
+        'attractions': ['Burj Khalifa', 'Palm Jumeirah', 'Dubai Mall'],
+        'suggested_budget': {'min': 1800, 'max': 3500},
+        'coordinates': {'lat': 25.2048, 'lon': 55.2708}
+    },
+    {
+        'id': 10,
+        'name': 'Barcelona',
+        'country': 'Spain',
+        'description': 'City of Gaudí',
+        'image': 'barcelona.jpg',
+        'attractions': ['Sagrada Familia', 'Park Güell', 'La Rambla'],
+        'suggested_budget': {'min': 1100, 'max': 2000},
+        'coordinates': {'lat': 41.3851, 'lon': 2.1734}
+    },
+    {
+        'id': 11,
+        'name': 'Kyoto',
+        'country': 'Japan',
+        'description': 'The cultural heart of Japan',
+        'image': 'kyoto.jpg',
+        'attractions': ['Fushimi Inari Shrine', 'Arashiyama Bamboo Grove', 'Kinkaku-ji Temple'],
+        'suggested_budget': {'min': 1300, 'max': 2200},
+        'coordinates': {'lat': 35.0116, 'lon': 135.7681}
+    },
+    {
+        'id': 12,
+        'name': 'Rio de Janeiro',
+        'country': 'Brazil',
+        'description': 'The Marvelous City',
+        'image': 'rio.jpg',
+        'attractions': ['Christ the Redeemer', 'Copacabana Beach', 'Sugarloaf Mountain'],
+        'suggested_budget': {'min': 1000, 'max': 1900},
+        'coordinates': {'lat': -22.9068, 'lon': -43.1729}
     }
 ]
 
@@ -98,6 +148,10 @@ trips = []
 @app.route('/')
 def home():
     return render_template('index.html', destinations=destinations)
+
+@app.route('/all_destinations')
+def all_destinations():
+    return render_template('all_destinations.html', destinations=destinations)
 
 @app.route('/destination/<int:destination_id>')
 def destination_detail(destination_id):
