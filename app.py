@@ -232,6 +232,91 @@ def destination_detail(destination_id):
         return render_template('destination.html', destination=destination)
     return redirect(url_for('home'))
 
+@app.route('/destination/<int:destination_id>/attractions')
+def attractions(destination_id):
+    destination = next((d for d in destinations if d['id'] == destination_id), None)
+    if not destination:
+        flash('Destination not found', 'danger')
+        return redirect(url_for('home'))
+    
+    # Sample extended attractions with more details
+    extended_attractions = [
+        {
+            'name': destination.get('attractions', [])[0] if destination.get('attractions') else 'Main Landmark',
+            'description': 'One of the most iconic landmarks in ' + destination['name'] + '. A must-visit for all travelers.',
+            'rating': 4.8,
+            'time_required': '2-3 hours',
+            'best_time': 'Early morning or late afternoon',
+            'location': 'City Center',
+            'coordinates': {'lat': destination['coordinates']['lat'] + 0.01, 'lon': destination['coordinates']['lon'] + 0.01}
+        },
+        {
+            'name': destination.get('attractions', [])[1] if len(destination.get('attractions', [])) > 1 else 'Historical Museum',
+            'description': 'Explore the rich history and cultural heritage of ' + destination['name'] + '.',
+            'rating': 4.6,
+            'time_required': '1-2 hours',
+            'best_time': 'Weekday mornings',
+            'location': 'Downtown',
+            'coordinates': {'lat': destination['coordinates']['lat'] - 0.01, 'lon': destination['coordinates']['lon'] - 0.02}
+        },
+        {
+            'name': 'Local Market',
+            'description': 'Experience the vibrant local culture and find unique souvenirs.',
+            'rating': 4.5,
+            'time_required': '1 hour',
+            'best_time': 'Weekend mornings',
+            'location': 'Old Town',
+            'coordinates': {'lat': destination['coordinates']['lat'] + 0.02, 'lon': destination['coordinates']['lon'] - 0.01}
+        },
+        {
+            'name': 'City Park',
+            'description': 'A beautiful green space perfect for relaxation and outdoor activities.',
+            'rating': 4.7,
+            'time_required': '1-3 hours',
+            'best_time': 'Afternoon',
+            'location': 'North District',
+            'coordinates': {'lat': destination['coordinates']['lat'] - 0.02, 'lon': destination['coordinates']['lon'] + 0.03}
+        },
+        {
+            'name': 'Art Gallery',
+            'description': 'Features impressive collections of local and international art.',
+            'rating': 4.4,
+            'time_required': '1-2 hours',
+            'best_time': 'Weekday afternoons',
+            'location': 'Cultural District',
+            'coordinates': {'lat': destination['coordinates']['lat'] + 0.03, 'lon': destination['coordinates']['lon'] + 0.02}
+        },
+        {
+            'name': 'Viewpoint Tower',
+            'description': 'Offers breathtaking panoramic views of the entire city.',
+            'rating': 4.9,
+            'time_required': '1 hour',
+            'best_time': 'Sunset',
+            'location': 'City Center',
+            'coordinates': {'lat': destination['coordinates']['lat'] - 0.01, 'lon': destination['coordinates']['lon'] + 0.01}
+        },
+        {
+            'name': 'Local Food Street',
+            'description': 'Sample authentic local cuisine from various street vendors and restaurants.',
+            'rating': 4.6,
+            'time_required': '2 hours',
+            'best_time': 'Evening',
+            'location': 'Eastern District',
+            'coordinates': {'lat': destination['coordinates']['lat'] + 0.02, 'lon': destination['coordinates']['lon'] - 0.02}
+        },
+        {
+            'name': 'Religious Site',
+            'description': 'An important cultural and religious landmark with beautiful architecture.',
+            'rating': 4.7,
+            'time_required': '1 hour',
+            'best_time': 'Morning',
+            'location': 'Old Town',
+            'coordinates': {'lat': destination['coordinates']['lat'] - 0.03, 'lon': destination['coordinates']['lon'] - 0.01}
+        }
+    ]
+    
+    return render_template('attractions.html', destination=destination, attractions=extended_attractions)
+
 @app.route('/plan_trip', methods=['GET', 'POST'])
 def plan_trip():
     if request.method == 'POST':

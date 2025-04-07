@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+
+{% block title %}Top Attractions in {{ destination.name }} - Travel Planner{% endblock %}
+
+{% block content %}
+<!-- Destination Header -->
+<div class="attractions-header mb-5">
+    <div class="attractions-image">
+        <img src="https://source.unsplash.com/1200x400/?{{ destination.name }},landmark" alt="{{ destination.name }} attractions" class="attractions-img">
+        <div class="attractions-overlay">
+            <div class="container">
+                <div class="attractions-title">
+                    <h1>Top Attractions in {{ destination.name }}</h1>
+                    <div class="attractions-meta">
+                        <span><i class="fas fa-map-marker-alt me-2"></i>{{ destination.country }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="attractions-intro">
+                <h2>Discover the Best of {{ destination.name }}</h2>
+                <p>Explore the most popular attractions and landmarks in {{ destination.name }}. From historical sites to natural wonders, there's something for every traveler. Add these must-visit spots to your itinerary for an unforgettable experience.</p>
+                
+                <div class="attractions-actions">
+                    <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to {{ destination.name }}
+                    </a>
+                    <a href="{{ url_for('plan_trip') }}" class="btn btn-primary">
+                        <i class="fas fa-calendar-alt me-2"></i>Plan Your Trip
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for attraction in attractions %}
+        <div class="col-lg-6 mb-4">
+            <div class="attraction-card">
+                <div class="attraction-card-header">
+                    <h3>{{ attraction.name }}</h3>
+                    <div class="attraction-rating">
+                        <span class="rating-value">{{ attraction.rating }}</span>
+                        <div class="rating-stars">
+                            {% set full_stars = (attraction.rating | int) %}
+                            {% set half_star = (attraction.rating - full_stars) >= 0.5 %}
+                            
+                            {% for i in range(full_stars) %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            
+                            {% if half_star %}
+                                <i class="fas fa-star-half-alt"></i>
+                            {% endif %}
+                            
+                            {% for i in range(5 - full_stars - (1 if half_star else 0)) %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card-body">
+                    <p class="attraction-description">{{ attraction.description }}</p>
+                    
+                    <div class="attraction-details">
+                        <div class="attraction-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>{{ attraction.time_required }}</span>
+                        </div>
+                        <div class="attraction-detail">
+                            <i class="fas fa-sun"></i>
+                            <span>{{ attraction.best_time }}</span>
+                        </div>
+                        <div class="attraction-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ attraction.location }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card-footer">
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ attraction.coordinates.lat }},{{ attraction.coordinates.lon }}" 
+                       target="_blank" class="btn-view-map">
+                        <i class="fas fa-map me-2"></i>View on Google Maps
+                    </a>
+                    <button class="btn-add-to-itinerary">
+                        <i class="fas fa-plus-circle me-2"></i>Add to Itinerary
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .attractions-header {
+        position: relative;
+        margin-top: 1.5rem;
+    }
+    
+    .attractions-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 25px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        height: 400px;
+        transition: all 0.5s ease;
+    }
+    
+    .attractions-image:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .attractions-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+    
+    .attractions-image:hover .attractions-img {
+        transform: scale(1.05);
+    }
+    
+    .attractions-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem;
+        transition: all 0.3s ease;
+        border-radius: 25px;
+    }
+    
+    .attractions-title {
+        color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .attractions-image:hover .attractions-title {
+        transform: translateY(-10px);
+    }
+    
+    .attractions-title h1 {
+        font-size: 3.2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        letter-spacing: -1px;
+    }
+    
+    .attractions-meta {
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        opacity: 0.9;
+    }
+    
+    .attractions-meta span {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .attractions-intro {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+    }
+    
+    .attractions-intro h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+    
+    .attractions-intro p {
+        font-size: 1.1rem;
+        color: var(--gray-color);
+        max-width: 900px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+    }
+    
+    .attractions-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .attraction-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .attraction-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    
+    .attraction-card-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .attraction-card-header h3 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--dark-color);
+    }
+    
+    .attraction-rating {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    .rating-value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    
+    .rating-stars {
+        color: #ffc107;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+    
+    .attraction-card-body {
+        padding: 1.5rem;
+        flex: 1;
+    }
+    
+    .attraction-description {
+        color: var(--gray-color);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .attraction-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .attraction-detail {
+        display: flex;
+        align-items: center;
+        background: rgba(67, 97, 238, 0.1);
+        color: var(--primary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+    }
+    
+    .attraction-detail i {
+        margin-right: 0.5rem;
+    }
+    
+    .attraction-card-footer {
+        padding: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+    
+    .btn-view-map {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-view-map:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(52, 148, 230, 0.3);
+        color: white;
+    }
+    
+    .btn-add-to-itinerary {
+        display: inline-flex;
+        align-items: center;
+        background: #f8f9fa;
+        color: var(--primary-color);
+        border: 1px solid rgba(67, 97, 238, 0.3);
+        border-radius: 50px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-add-to-itinerary:hover {
+        background: rgba(67, 97, 238, 0.1);
+        transform: translateY(-3px);
+    }
+    
+    @media (max-width: 991px) {
+        .attraction-card-footer {
+            flex-direction: column;
+        }
+        
+        .btn-view-map, .btn-add-to-itinerary {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .attractions-title h1 {
+            font-size: 2.25rem;
+        }
+        
+        .attractions-intro h2 {
+            font-size: 2rem;
+        }
+        
+        .attractions-actions {
+            flex-direction: column;
+        }
+        
+        .attractions-image {
+            height: 300px;
+        }
+    }
+</style>
+{% endblock %} 
