@@ -206,6 +206,84 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Nearby Attractions Section -->
+            <div class="nearby-widget mb-4">
+                <div class="nearby-card">
+                    <div class="nearby-header">
+                        <h5><i class="fas fa-map-pin me-2"></i>Nearby Attractions</h5>
+                    </div>
+                    
+                    <div class="nearby-content">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="nearby-item">
+                                    <div class="nearby-icon">
+                                        <i class="fas fa-museum"></i>
+                                    </div>
+                                    <div class="nearby-info">
+                                        <h5>Art Museum</h5>
+                                        <div class="nearby-meta">
+                                            <span><i class="fas fa-walking me-1"></i>15 min walk</span>
+                                            <span><i class="fas fa-star me-1"></i>4.5/5</span>
+                                        </div>
+                                        <p>World-class art collection featuring famous pieces and exhibitions.</p>
+                                        <button class="btn-nearby-add"><i class="fas fa-plus-circle me-2"></i>Add to Itinerary</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="nearby-item">
+                                    <div class="nearby-icon">
+                                        <i class="fas fa-tree"></i>
+                                    </div>
+                                    <div class="nearby-info">
+                                        <h5>Botanical Garden</h5>
+                                        <div class="nearby-meta">
+                                            <span><i class="fas fa-car me-1"></i>10 min drive</span>
+                                            <span><i class="fas fa-star me-1"></i>4.7/5</span>
+                                        </div>
+                                        <p>Beautiful gardens with exotic plants and relaxing walking paths.</p>
+                                        <button class="btn-nearby-add"><i class="fas fa-plus-circle me-2"></i>Add to Itinerary</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="nearby-item">
+                                    <div class="nearby-icon">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                    <div class="nearby-info">
+                                        <h5>Local Food Market</h5>
+                                        <div class="nearby-meta">
+                                            <span><i class="fas fa-walking me-1"></i>20 min walk</span>
+                                            <span><i class="fas fa-star me-1"></i>4.4/5</span>
+                                        </div>
+                                        <p>Authentic local cuisine and fresh produce from the region.</p>
+                                        <button class="btn-nearby-add"><i class="fas fa-plus-circle me-2"></i>Add to Itinerary</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="nearby-item">
+                                    <div class="nearby-icon">
+                                        <i class="fas fa-landmark"></i>
+                                    </div>
+                                    <div class="nearby-info">
+                                        <h5>Historic Site</h5>
+                                        <div class="nearby-meta">
+                                            <span><i class="fas fa-subway me-1"></i>15 min by metro</span>
+                                            <span><i class="fas fa-star me-1"></i>4.8/5</span>
+                                        </div>
+                                        <p>Ancient ruins and historical monuments with guided tours available.</p>
+                                        <button class="btn-nearby-add"><i class="fas fa-plus-circle me-2"></i>Add to Itinerary</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- Sidebar -->
@@ -295,6 +373,59 @@
                             <a href="https://www.google.com/maps/search/?api=1&query={{ destination.name }}+{{ destination.country }}" target="_blank" class="location-link">
                                 <i class="fas fa-external-link-alt me-2"></i>View on Google Maps
                             </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transportation Hub Section -->
+            <div class="transport-widget mb-4">
+                <div class="transport-card">
+                    <div class="transport-header">
+                        <h5><i class="fas fa-route me-2"></i>Transportation Hub</h5>
+                    </div>
+                    
+                    <div class="transport-content">
+                        <div class="transport-item">
+                            <div class="transport-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="transport-info">
+                                <h5>{{ destination.name }} International Airport</h5>
+                                <div class="transport-meta">
+                                    <span><i class="fas fa-car me-1"></i>25 km from city center</span>
+                                </div>
+                                <p>Major international airport with connections to global destinations.</p>
+                                <a href="#" class="transport-link"><i class="fas fa-ticket-alt me-2"></i>Find Flights</a>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-item">
+                            <div class="transport-icon">
+                                <i class="fas fa-train"></i>
+                            </div>
+                            <div class="transport-info">
+                                <h5>Central Train Station</h5>
+                                <div class="transport-meta">
+                                    <span><i class="fas fa-walking me-1"></i>Downtown area</span>
+                                </div>
+                                <p>Main railway hub with domestic and international connections.</p>
+                                <a href="#" class="transport-link"><i class="fas fa-ticket-alt me-2"></i>Book Train Tickets</a>
+                            </div>
+                        </div>
+                        
+                        <div class="transport-item">
+                            <div class="transport-icon">
+                                <i class="fas fa-subway"></i>
+                            </div>
+                            <div class="transport-info">
+                                <h5>Public Transportation</h5>
+                                <div class="transport-meta">
+                                    <span><i class="fas fa-clock me-1"></i>Operating 6AM - 12AM</span>
+                                </div>
+                                <p>Extensive network of metro, buses and trams throughout the city.</p>
+                                <a href="#" class="transport-link"><i class="fas fa-info-circle me-2"></i>Transit Map</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1080,6 +1211,268 @@
     @media (max-width: 768px) {
         .location-details {
             grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Nearby Attractions Widget Styles */
+    .nearby-widget {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nearby-card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #9D50BB 0%, #6E48AA 100%);
+        box-shadow: 0 15px 30px rgba(157, 80, 187, 0.25);
+        color: white;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .nearby-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(157, 80, 187, 0.3);
+    }
+    
+    .nearby-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .nearby-header h5 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .nearby-content {
+        padding: 0.5rem;
+    }
+    
+    .nearby-item {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 1rem;
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .nearby-item:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+    }
+    
+    .nearby-icon {
+        background: rgba(255, 255, 255, 0.3);
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .nearby-info {
+        flex: 1;
+    }
+    
+    .nearby-info h5 {
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    .nearby-meta {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .nearby-meta span {
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        padding: 0.25rem 0.75rem;
+    }
+    
+    .nearby-info p {
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    
+    .btn-nearby-add {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-nearby-add:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+    }
+    
+    /* Transportation Hub Widget Styles */
+    .transport-widget {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .transport-card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1D976C 0%, #93F9B9 100%);
+        box-shadow: 0 15px 30px rgba(29, 151, 108, 0.25);
+        color: white;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .transport-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(29, 151, 108, 0.3);
+    }
+    
+    .transport-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .transport-header h5 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .transport-content {
+        padding: 0.5rem;
+    }
+    
+    .transport-item {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 1rem;
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+    
+    .transport-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .transport-item:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+    }
+    
+    .transport-icon {
+        background: rgba(255, 255, 255, 0.3);
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .transport-info {
+        flex: 1;
+    }
+    
+    .transport-info h5 {
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    .transport-meta {
+        margin-bottom: 0.5rem;
+    }
+    
+    .transport-meta span {
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        padding: 0.25rem 0.75rem;
+    }
+    
+    .transport-info p {
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    
+    .transport-link {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .transport-link:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .nearby-item, .transport-item {
+            flex-direction: column;
+        }
+        
+        .nearby-icon, .transport-icon {
+            margin-right: 0;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nearby-meta {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .nearby-meta span {
+            width: fit-content;
         }
     }
 </style>
