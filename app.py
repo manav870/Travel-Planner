@@ -12,10 +12,9 @@ app = Flask(__name__,
             static_folder='app/static',
             template_folder='app/templates')
 
-app.secret_key = 'your_secret_key'  # Change this to a random secret key in production
+app.secret_key = os.getenv('SECRET_KEY', 'your_secret_key')  # Use environment variable with fallback
 
 # Weather API configuration
-OPENWEATHER_API_KEY = os.getenv('OPENWEATHERMAP_API_KEY')
 WEATHERAPI_KEY = os.getenv('WEATHERAPI_KEY')
 WEATHERAPI_BASE_URL = 'http://api.weatherapi.com/v1/current.json'
 
