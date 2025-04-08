@@ -101,6 +101,20 @@ Travel-Planner/
 
 ## Installation
 
+### Windows (Easy Setup)
+
+1. Run the Setup File:
+   - Double-click on `setup.bat`
+   - This will create a virtual environment and install all required dependencies
+   - Wait until you see "Setup completed successfully!"
+
+2. Run the Application:
+   - Double-click on `run_app.bat`
+   - This will start the Flask server
+   - The application will be accessible at http://127.0.0.1:5000
+
+### Manual Installation
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/yourusername/Travel-Planner.git
@@ -120,13 +134,22 @@ pip install -r requirements.txt
 
 4. Set up environment variables:
 ```bash
+# On Linux/Mac:
 export FLASK_APP=app
 export FLASK_ENV=development
+
+# On Windows (Command Prompt):
+set FLASK_APP=app
+set FLASK_ENV=development
+
+# On Windows (PowerShell):
+$env:FLASK_APP="app"
+$env:FLASK_ENV="development"
 ```
 
 5. Run the application:
 ```bash
-flask run
+python app.py  # or "flask run"
 ```
 
 ## Configuration
@@ -168,3 +191,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Maps integration powered by Google Maps
 - Icons by Font Awesome
 - Design inspiration from modern travel websites 
+
+## Troubleshooting
+
+- **Python Not Found**: Ensure Python is installed and added to the PATH
+- **Module Not Found Errors**: Make sure setup.bat ran successfully or requirements are installed
+- **Port Already in Use**: Close any other applications using port 5000, or modify app.py to use a different port 
