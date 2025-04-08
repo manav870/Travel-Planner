@@ -6,7 +6,7 @@
 <!-- Destination Header -->
 <div class="attractions-header mb-5">
     <div class="attractions-image">
-        <img src="{{ url_for('static', filename='images/destinations/' + (destination.name.lower() if destination.name.lower() not in ['rio de janeiro', 'new york'] else 'rio' if destination.name.lower() == 'rio de janeiro' else 'newyork') + ' (Custom).jpg') }}" alt="{{ destination.name }} attractions" class="attractions-img" onerror="this.src='{{ url_for('static', filename='images/destinations/' + (destination.name.lower() if destination.name.lower() not in ['rio de janeiro', 'new york'] else 'rio' if destination.name.lower() == 'rio de janeiro' else 'newyork') + '.jpg') }}'">
+        <img src="{{ url_for('static', filename='images/destinations/' + destination.name.lower().replace(' ', '') + '.jpg') }}" alt="{{ destination.name }} attractions" class="attractions-img" onerror="this.src='{{ url_for('static', filename='images/destinations/default.jpg') }}'">
         <div class="attractions-overlay">
             <div class="container">
                 <div class="attractions-title">

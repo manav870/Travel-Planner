@@ -52,7 +52,7 @@
             <a href="{{ url_for('destination_detail', destination_id=destination.id) }}" class="text-decoration-none">
                 <div class="card h-100 destination-card">
                     <div class="card-img-wrapper">
-                        <img src="https://source.unsplash.com/600x400/?{{ destination.name }},travel" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='https://via.placeholder.com/600x400?text={{ destination.name }}'">
+                        <img src="{{ url_for('static', filename='images/destinations/' + destination.name.lower().replace(' ', '') + '.jpg') }}" class="card-img-top" alt="{{ destination.name }}" onerror="this.src='{{ url_for('static', filename='images/destinations/default.jpg') }}'">
                         <div class="card-img-overlay d-flex align-items-end">
                             <span class="badge bg-primary px-3 py-2 mb-3">{{ destination.country }}</span>
                         </div>
