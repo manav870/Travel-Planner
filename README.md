@@ -1,90 +1,170 @@
-# Personalized Travel Planner
+# Travel Planner
 
-A web application for planning and organizing trips, built with Python and Flask.
+A modern web application for planning and organizing your travel adventures. Built with Flask and Bootstrap, this application helps users discover destinations, plan itineraries, and track their trips.
 
 ## Features
 
+### 1. Destination Discovery
 - Browse popular travel destinations
-- View detailed information about destinations
-- Plan trips with customized itineraries
-- Set travel dates and budgets
-- Track planned activities
-- View all your planned trips
+- View detailed information about each destination
+- Access top attractions and points of interest
+- Get travel tips and recommendations
+- View real-time weather information
+- Interactive maps and location details
 
-## Technologies Used
+### 2. Trip Planning
+- Create personalized travel itineraries
+- Add attractions to your trip plan
+- Track suggested budgets
+- View transportation options
+- Save and manage multiple trips
 
-- **Backend**: Python with Flask framework
-- **Frontend**: HTML, CSS, JavaScript
-- **Styling**: Bootstrap 5
-- **Database**: Currently using in-memory storage (can be extended to use SQLite, MySQL, etc.)
+### 3. User Experience
+- Modern, responsive design
+- Interactive UI elements
+- Real-time weather updates
+- Location-based information
+- Mobile-friendly interface
+
+## Technology Stack
+
+### Backend
+- **Flask**: Python web framework
+- **SQLAlchemy**: Database ORM
+- **Jinja2**: Template engine
+- **RESTful API**: For weather and location data
+
+### Frontend
+- **Bootstrap 5**: Responsive design framework
+- **JavaScript**: Interactive features
+- **CSS3**: Modern styling and animations
+- **Font Awesome**: Icons and visual elements
+
+### APIs
+- Weather API for real-time weather data
+- Google Maps API for location services
 
 ## Project Structure
 
 ```
-Travel Planner/
-├── app.py                  # Main application file
-├── requirements.txt        # Python dependencies
-├── app/                    # Application package
-│   ├── static/             # Static files
-│   │   ├── css/            # CSS files
-│   │   ├── js/             # JavaScript files
-│   │   └── images/         # Image files
-│   ├── templates/          # HTML templates
-│   └── models/             # Data models
+Travel-Planner/
+├── app/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+│   │       └── destinations/
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── destination.html
+│   │   ├── attractions.html
+│   │   ├── all_destinations.html
+│   │   └── plan_trip.html
+│   ├── __init__.py
+│   ├── models.py
+│   ├── routes.py
+│   └── utils.py
+├── requirements.txt
+└── README.md
 ```
 
-## Setup Instructions
+## Key Components
+
+### 1. Destination Management
+- Detailed destination pages with:
+  - Header images
+  - Location information
+  - Weather widget
+  - Attractions list
+  - Travel tips
+  - Transportation details
+
+### 2. Weather Integration
+- Real-time weather updates
+- Temperature, humidity, and wind speed
+- Weather icons and descriptions
+- Automatic refresh every 30 minutes
+
+### 3. Location Services
+- Interactive maps
+- Coordinates display
+- Continent information
+- Google Maps integration
+
+### 4. UI Components
+- Modern card-based design
+- Glassmorphism effects
+- Hover animations
+- Responsive layouts
+- Interactive elements
+
+## Installation
 
 1. Clone the repository:
-   ```
-   git clone <repository-url>
-   cd travel-planner
-   ```
+```bash
+git clone https://github.com/yourusername/Travel-Planner.git
+cd Travel-Planner
+```
 
-2. Create a virtual environment (optional but recommended):
-   ```
-   python -m venv venv
-   ```
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-3. Activate the virtual environment:
-   - Windows:
-     ```
-     venv\Scripts\activate
-     ```
-   - macOS/Linux:
-     ```
-     source venv/bin/activate
-     ```
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-4. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+4. Set up environment variables:
+```bash
+export FLASK_APP=app
+export FLASK_ENV=development
+```
 
 5. Run the application:
-   ```
-   python app.py
-   ```
+```bash
+flask run
+```
 
-6. Open your browser and navigate to:
-   ```
-   http://127.0.0.1:5000/
-   ```
+## Configuration
 
-## Future Enhancements
+1. Create a `.env` file with the following variables:
+```
+FLASK_APP=app
+FLASK_ENV=development
+SECRET_KEY=your_secret_key
+WEATHER_API_KEY=your_weather_api_key
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
 
-- User authentication and profiles
-- Database integration for persistent storage
-- Weather API integration for destination forecasts
-- Map integration for visualizing destinations
-- Accommodation and flight booking recommendations
-- Social sharing features
-- Mobile app version
+2. Update the database configuration in `app/__init__.py`
 
-## College Project Information
+## Usage
 
-This project was created as part of a college assignment to demonstrate web application development skills using Python.
+1. Access the application at `http://localhost:5000`
+2. Browse destinations
+3. View destination details
+4. Plan your trips
+5. Track your itineraries
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
-This project is for educational purposes only. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Weather data provided by [WeatherAPI]
+- Maps integration powered by Google Maps
+- Icons by Font Awesome
+- Design inspiration from modern travel websites 
