@@ -5,7 +5,7 @@ import requests
 import random
 from dotenv import load_dotenv
 
-# Load environment variables
+
 load_dotenv()
 
 app = Flask(__name__, 
@@ -14,11 +14,11 @@ app = Flask(__name__,
 
 app.secret_key = os.getenv('SECRET_KEY', 'your_secret_key')  # Use environment variable with fallback
 
-# Weather API configuration
+
 WEATHERAPI_KEY = os.getenv('WEATHERAPI_KEY')
 WEATHERAPI_BASE_URL = 'http://api.weatherapi.com/v1/current.json'
 
-# Sample data - in a real app, you would use a database
+
 destinations = [
     {
         'id': 1,
@@ -238,7 +238,7 @@ def attractions(destination_id):
         flash('Destination not found', 'danger')
         return redirect(url_for('home'))
     
-    # Sample extended attractions with more details
+    
     extended_attractions = [
         {
             'name': destination.get('attractions', [])[0] if destination.get('attractions') else 'Main Landmark',
@@ -320,24 +320,24 @@ def attractions(destination_id):
 def plan_trip():
     if request.method == 'POST':
         try:
-            # Process the form data
+            
             activities_text = request.form.get('activities', '').strip()
             activities_list = [activity.strip() for activity in activities_text.split(',')] if activities_text else []
             
-            # Validate destination
+          
             destination_id = int(request.form.get('destination', 0))
             if not any(d['id'] == destination_id for d in destinations):
                 flash('Please select a valid destination.', 'danger')
                 return render_template('plan_trip.html', destinations=destinations)
             
-            # Validate dates
+         
             start_date = request.form.get('start_date')
             end_date = request.form.get('end_date')
             if not start_date or not end_date:
                 flash('Please select valid travel dates.', 'danger')
                 return render_template('plan_trip.html', destinations=destinations)
             
-            # Validate and parse budget
+          
             try:
                 budget = float(request.form.get('budget', 0))
                 if budget <= 0:
@@ -347,7 +347,7 @@ def plan_trip():
                 flash('Please enter a valid budget amount.', 'danger')
                 return render_template('plan_trip.html', destinations=destinations)
             
-            # Create new trip
+         
             new_trip = {
                 'id': len(trips) + 1,
                 'destination_id': destination_id,
@@ -368,7 +368,7 @@ def plan_trip():
 
 @app.route('/my_trips')
 def my_trips():
-    # Enhance trips with destination information
+
     enhanced_trips = []
     for trip in trips:
         destination = next((d for d in destinations if d['id'] == trip['destination_id']), None)
@@ -381,7 +381,7 @@ def my_trips():
 
 @app.route('/delete_trip/<int:trip_id>', methods=['POST'])
 def delete_trip(trip_id):
-    # Find the trip with the given ID and remove it
+ 
     trip_index = next((index for index, trip in enumerate(trips) if trip['id'] == trip_id), None)
     
     if trip_index is not None:
@@ -399,9 +399,9 @@ def get_weather(destination_id):
         if not destination:
             return jsonify({'error': 'Destination not found'}), 404
 
-        # Check if we have a valid API key
+  
         if WEATHERAPI_KEY and WEATHERAPI_KEY != "55e07126c6e64ddca6a105841251804":
-            # Try to use the real API
+           
             params = {
                 'key': WEATHERAPI_KEY,
                 'q': f"{destination['coordinates']['lat']},{destination['coordinates']['lon']}",
@@ -412,7 +412,7 @@ def get_weather(destination_id):
             if response.status_code == 200:
                 weather_data = response.json()
                 
-                # Format the weather data for WeatherAPI.com response
+              
                 weather_info = {
                     'temperature': round(weather_data['current']['temp_c']),
                     'feels_like': round(weather_data['current']['feelslike_c']),
@@ -425,8 +425,7 @@ def get_weather(destination_id):
                 }
                 return jsonify(weather_info)
         
-        # If API key is invalid or API call failed, use mock data
-        # Generate realistic mock weather data based on destination
+
         weather_conditions = [
             {"description": "Sunny", "icon": "https://cdn.weatherapi.com/weather/64x64/day/113.png"},
             {"description": "Partly cloudy", "icon": "https://cdn.weatherapi.com/weather/64x64/day/116.png"},
@@ -435,11 +434,11 @@ def get_weather(destination_id):
             {"description": "Moderate rain", "icon": "https://cdn.weatherapi.com/weather/64x64/day/302.png"}
         ]
         
-        # Different destinations have different weather patterns
+    
         condition_index = (destination['id'] - 1) % len(weather_conditions)
         condition = weather_conditions[condition_index]
         
-        # Temperature ranges by region (roughly)
+   
         base_temp = 0
         if destination['name'] in ['Paris', 'London', 'Rome']:  # Europe
             base_temp = 15  # Mild
@@ -450,11 +449,11 @@ def get_weather(destination_id):
         elif destination['name'] == 'Sydney':  # Australia
             base_temp = 20  # Warm
             
-        # Add some randomness
+     
         temp_variation = random.randint(-3, 3)
         temp = base_temp + temp_variation
         
-        # Mock weather info
+     
         weather_info = {
             'temperature': temp,
             'feels_like': temp - 1 if condition['description'] in ['Cloudy', 'Light rain', 'Moderate rain'] else temp + 1,
