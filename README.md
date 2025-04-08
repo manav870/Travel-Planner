@@ -181,10 +181,6 @@ GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 4. Push to the branch
 5. Create a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 
 - Weather data provided by [WeatherAPI]
